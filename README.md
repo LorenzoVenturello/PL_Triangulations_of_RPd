@@ -16,5 +16,5 @@ The code is still primitive. On our laptop we verified the construction up to di
 
 We include the files "Real_projective_spaces.py" and "Real_projective_spaces_f_vectors.py" containing the lists of facets and the f-vectors respectively of the triangulations of RP^i.
 
-The construction is inductive, and it depends on fixing a certain locally acyclic orientation of the graph of the sphere on one dimension lower. Different orientations could give rise to non-isomorphic triangulation. The code implemented here does not leave this choice to the user, but it fixes a standard globally acyclic orientation induced by the labeling of the vertices.
+The construction is inductive, and it depends on fixing a certain locally acyclic orientation of the graph of the sphere on one dimension lower. Different orientations could give rise to non-isomorphic triangulations. The code implemented here does not leave this choice to the user, but it fixes a standard globally acyclic orientation induced by the labeling of the vertices.
 
