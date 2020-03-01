@@ -10,7 +10,7 @@ Once the file is loaded, the function "generate_spheres_up_to_dim_k(k)" can be c
 -The first contains a centrally symmetric PL triangulation of S^i for i=1,...,k without cs invariant 4-cycles. These correspond to the spheres \Phi in https://arxiv.org/abs/1910.07433
 -The second list contains the quotients of the complexes in the first list w.r.t. the antipodal symmetry. These simplicial complexes are PL triangulations of the real projective space RP^i for i=1,...,k.
 
-Our result is that the triangulations of RP^i have 1/2(3F_{i-1}+7F_i+3F_{i+1}-4) many vertices, where F_i is the i-th Fibonacci number (F_0=0, F_1=1, F_i=F_{i-1}+F_{i-2}).
+Our result is that the triangulations of RP^i have 1/2(3F_{i-1}+7F_i+3F_{i+1}-4) many vertices, where F_i is the i-th Fibonacci number (F_0=0, F_1=1, F_i=F_{i-1}+F_{i-2}). For d>5 this is currently the minimum number of vertices known for such a simplicial complex.
 
 The code is still primitive. On our laptop we verified the construction up to dimension 6, before the running time slowed down.
 
