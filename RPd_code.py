@@ -99,15 +99,19 @@ def prism(S, B, D, stv, n):
 	SigmaI=SimplicialComplex(Sigma.facets()+FP+FM)
 	#print("SigmaI")
 	#print SigmaI.homology()
-	BSigma=boundary_complex(SigmaI)
+	#BSigma=boundary_complex(SigmaI)
 	#print BSigma
-	FNEW=[]
-	for f in BSigma:
-		if f[-1][0]=="U" or f[-2][0]=="U":
-			FNEW.append(["P2"]+list(f))
-		if f[-1][0]=="D" or f[-2][0]=="D":	
-			FNEW.append(["M2"]+list(f))
-	X=SimplicialComplex(list(SigmaI.facets())+FNEW)	
+	#FNEW=[]
+	BSigma2U=induced_subcomplex(SigmaI, ["P1"]+["U"+str(i) for i in list(stv.vertices())+sym(list(D.vertices()),n)+sym(list(stv.vertices()),n)],d)
+	BSigma2D=induced_subcomplex(SigmaI, ["M1"]+["D"+str(i) for i in list(stv.vertices())+sym(list(stv.vertices()),n)+list(D.vertices())],d)
+	FNEWU=list(BSigma2U.join(SimplicialComplex([["P2"]]),rename_vertices=False).facets())
+	FNEWD=list(BSigma2D.join(SimplicialComplex([["M2"]]),rename_vertices=False).facets())
+	#for f in BSigma:
+	#	if f[-1][0]=="U" or f[-2][0]=="U":
+	#		FNEW.append(["P2"]+list(f))
+	#	if f[-1][0]=="D" or f[-2][0]=="D":	
+	#		FNEW.append(["M2"]+list(f))
+	X=SimplicialComplex(list(SigmaI.facets())+FNEWU+FNEWD)	
 	#print("Here")	
 	return X
 
@@ -164,9 +168,26 @@ def contract(Sn, D, n):
 	print("Contracted")	
 	return A
 
+def contract2(Sn, D, n):
+	print("Contracting_edges_of_Phi'")
+	F = Sn.facets()
+	NF=[]
+	for f in F:
+		nf=[]
+		for i in f:
+			if i[0]!="P" and i[0]!="M" and eval(i[1:]) in list(D.vertices())+sym(list(D.vertices()),n):
+				nf.append("U"+str(i[1:]))
+			if i[0]!="P" and i[0]!="M"and eval(i[1:]) not in list(D.vertices())+sym(list(D.vertices()),n):
+				nf.append(i)
+			if i[0]=="P" or i[0]=="M":
+				nf.append(i)	
+		NF.append(list(set(nf)))	
+	print("Contracted")	
+	return SimplicialComplex(NF)
+
 def spherePhi(S, B, D, stv, n):
 	P=prism(S, B, D, stv, n)
-	X=contract(P,D,n)
+	X=contract2(P,D,n)
 	#print "Dimension="+str(X.dimension())
 	#print "f-vector="+str(X.f_vector())
 	#print "Pseudomanifold="+str(X.is_pseudomanifold())
